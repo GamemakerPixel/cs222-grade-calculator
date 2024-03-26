@@ -6,20 +6,30 @@ class GradeCalculator:
     ASSIGNMENT_MINIMUMS = [7, 6, 5, 4]
     ACHIEVEMENT_MINIMUMS = [5, 4, 3, 2]
     MIDSEMESTER_MINIMUMS = [1]
+    FINAL_MINIMUMS = [2, 1]
 
     MIDSEMESTER_MAPPING = [0, 3]
+    FINAL_MAPPING = [0, 2, 3]
 
 
-    def __init__(self, assignments: int, achievements: int, midsemester: int):
+    def __init__(
+            self,
+            assignments: int,
+            achievements: int,
+            midsemester: int,
+            final: int
+    ):
         self.criteria_inputs = [
             assignments,
             achievements,
             midsemester,
+            final,
         ]
         self.criteria = [
             Criterion(self.ASSIGNMENT_MINIMUMS),
             Criterion(self.ACHIEVEMENT_MINIMUMS),
             MappedCriterion(self.MIDSEMESTER_MINIMUMS, self.MIDSEMESTER_MAPPING),
+            MappedCriterion(self.FINAL_MINIMUMS, self.FINAL_MAPPING),
         ]
 
     def calculateGrade(self) -> str:

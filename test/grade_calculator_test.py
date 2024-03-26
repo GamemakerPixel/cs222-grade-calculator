@@ -13,7 +13,7 @@ ASSIGNMENT_TEST_DATA = [
 
 @pytest.mark.parametrize("count,grade", ASSIGNMENT_TEST_DATA)
 def test_assignments(count: int, grade: str) -> None:
-    calculator = GradeCalculator(count, 5, 1)
+    calculator = GradeCalculator(count, 5, 1, 2)
     result_grade = calculator.calculateGrade()
     assert result_grade == grade
 
@@ -29,7 +29,7 @@ ACHIEVEMENT_TEST_DATA = [
 
 @pytest.mark.parametrize("count,grade", ACHIEVEMENT_TEST_DATA)
 def test_achievements(count: int, grade: str) -> None:
-    calculator = GradeCalculator(7, count, 1)
+    calculator = GradeCalculator(7, count, 1, 2)
     result_grade = calculator.calculateGrade()
     assert result_grade == grade
 
@@ -42,6 +42,22 @@ MIDSEMESTER_TEST_DATA = [
 
 @pytest.mark.parametrize("completed,grade", MIDSEMESTER_TEST_DATA)
 def test_midsemester(completed: int, grade: str) -> None:
-    calculator = GradeCalculator(7, 5, completed)
+    calculator = GradeCalculator(7, 5, completed, 2)
     result_grade = calculator.calculateGrade()
     assert result_grade == grade
+
+
+FINAL_TEST_DATA = [
+    (2, "A"),
+    (1, "C"),
+    (0, "D"),
+]
+
+
+@pytest.mark.parametrize("specification_met,grade", FINAL_TEST_DATA)
+def test_final(specification_met: int, grade: str) -> None:
+    calculator = GradeCalculator(7, 5, 1, specification_met)
+    result_grade = calculator.calculateGrade()
+    assert result_grade == grade
+
+
