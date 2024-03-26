@@ -1,3 +1,5 @@
+from main.criterion import Criterion
+
 class GradeCalculator:
     GRADES = ["A", "B", "C", "D", "F"]
     ASSIGNMENT_MINIMUMS = [7, 6, 5, 4]
@@ -6,7 +8,6 @@ class GradeCalculator:
         self.assignments = assignments
 
     def calculateGrade(self) -> str:
-        for index, minimum in enumerate(self.ASSIGNMENT_MINIMUMS):
-            if self.assignments >= minimum:
-                return self.GRADES[index]
-        return self.GRADES[-1]
+        assignment_criterion = Criterion(self.ASSIGNMENT_MINIMUMS)
+        assignment_level = assignment_criterion.get_level(self.assignments)
+        return self.GRADES[assignment_level]
