@@ -15,17 +15,27 @@ class GradeCalculator:
             assignments: int,
             achievements: int,
             midsemester: int,
-            final: int
+            final: int,
+            projects: list[int]
     ):
         self.criteria_inputs = [
             assignments,
             achievements,
             midsemester,
             final,
+            projects,
         ]
 
     def calculateGrade(self) -> str:
         non_project_minimums = [self.CRITERIA_MINIMUMS[index][:-1] for index in range(len(self.CRITERIA_MINIMUMS))]
         non_project_criteria = Criteria(non_project_minimums)
 
-        return self.GRADES[non_project_criteria.get_maximized_level(self.criteria_inputs)]
+        project_minimums = [self.CRITERIA_MINIMUMS[index][-1] for index in range(len(self.CRITERIA_MINIMUMS))]
+        project_criteria = Criteria(project_minimums)
+
+        max_level = max(
+            non_project_criteria.get_maximized_level(self.criteria_inputs[:-1]),
+            project_criteria.get_maximized_level(self.criteria_inputs[-1])
+        )
+
+        return self.GRADES[max_level]
