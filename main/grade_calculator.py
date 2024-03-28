@@ -1,16 +1,14 @@
-from main.criterion import Criterion
-from main.mapped_criterion import MappedCriterion
+from main.criteria import Criteria
+
 
 class GradeCalculator:
     GRADES = ["A", "B", "C", "D", "F"]
-    ASSIGNMENT_MINIMUMS = [7, 6, 5, 4]
-    ACHIEVEMENT_MINIMUMS = [5, 4, 3, 2]
-    MIDSEMESTER_MINIMUMS = [1]
-    FINAL_MINIMUMS = [2, 1]
-
-    MIDSEMESTER_MAPPING = [0, 3]
-    FINAL_MAPPING = [0, 2, 3]
-
+    CRITERIA_MINIMUMS = [
+        [7, 5, 1, 2, [1, 1, 1, 1, 4]],
+        [6, 4, 1, 2, [0, 0, 0, 0, 3]],
+        [5, 3, 1, 1, [0, 0, 0, 0, 2]],
+        [4, 2, 0, 0, [0, 0, 0, 0, 1]],
+    ]
 
     def __init__(
             self,
@@ -25,17 +23,9 @@ class GradeCalculator:
             midsemester,
             final,
         ]
-        self.criteria = [
-            Criterion(self.ASSIGNMENT_MINIMUMS),
-            Criterion(self.ACHIEVEMENT_MINIMUMS),
-            MappedCriterion(self.MIDSEMESTER_MINIMUMS, self.MIDSEMESTER_MAPPING),
-            MappedCriterion(self.FINAL_MINIMUMS, self.FINAL_MAPPING),
-        ]
 
     def calculateGrade(self) -> str:
-        max_grade_level = 0
-        for criterion_input, criterion in zip(self.criteria_inputs, self.criteria):
-            grade_level = criterion.get_level(criterion_input)
-            max_grade_level = max(max_grade_level, grade_level)
+        non_project_minimums = [self.CRITERIA_MINIMUMS[index][:-1] for index in range(len(self.CRITERIA_MINIMUMS))]
+        non_project_criteria = Criteria(non_project_minimums)
 
-        return self.GRADES[max_grade_level]
+        return self.GRADES[non_project_criteria.get_maximized_level(self.criteria_inputs)]
