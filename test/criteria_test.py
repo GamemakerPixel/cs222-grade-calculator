@@ -1,7 +1,6 @@
 import pytest
 
 from main.criteria import Criteria
-from main.criterion import Criterion
 
 
 GET_MAXIMIZED_LEVEL_TEST_DATA = [
