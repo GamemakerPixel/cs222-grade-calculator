@@ -1,3 +1,5 @@
+from main.grade_calculator import GradeCalculator
+
 NUMERIC_INPUT_REMINDER = "Invalid input, please enter an integer between {min} and {max}."
 
 ASSIGNMENTS_PROMPT = "Enter the number of assignments completed:"
@@ -37,6 +39,8 @@ PROJECT_ITERATION_COUNTS = [
     2,
     3,
 ]
+
+GRADE_REPORT = "The final grade is {grade}."
 
 
 def _get_valid_numeric_input(
@@ -88,11 +92,17 @@ def _display_project_prompts() -> list[int]:
 
 
 def main():
-    print(_display_numeric_prompt(ASSIGNMENTS_PROMPT, 0, ASSIGNMENTS_MAX))
-    print(_display_numeric_prompt(ACHIEVEMENTS_PROMPT, 0, ACHIEVEMENTS_MAX))
-    print(_display_menu(MIDTERM_PROMPT, MIDTERM_MENU_OPTIONS))
-    print(_display_menu(FINAL_PROMPT, FINAL_MENU_OPTIONS))
+    #calculator = GradeCalculator(
+    #    _display_numeric_prompt(ASSIGNMENTS_PROMPT, 0, ASSIGNMENTS_MAX),
+    #    _display_numeric_prompt(ACHIEVEMENTS_PROMPT, 0, ACHIEVEMENTS_MAX),
+    #    _display_menu(MIDTERM_PROMPT, MIDTERM_MENU_OPTIONS),
+    #    _display_menu(FINAL_PROMPT, FINAL_MENU_OPTIONS),
+    #    _display_project_prompts(),
+    #)
+
+    #print(GRADE_REPORT.format(grade=calculator.calculateGrade()))
     print(_display_project_prompts())
+    
 
 
 if __name__ == "__main__":

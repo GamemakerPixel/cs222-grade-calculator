@@ -4,7 +4,7 @@ Author: Aidan Bensch
 A console program that calculates your final grade for CS222 based on your current grades.
 ## Run instructions
 ```
-python main/main.py
+python menu.py
 ```
 ## Test instructions
 ```
